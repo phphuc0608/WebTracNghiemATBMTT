@@ -25,7 +25,7 @@ $query = $stmt->execute();
     <?php
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     ?>
-      <div id="question-<?php echo $row['ma_cau_hoi'] ?>" class="question_box">
+      <div id="question-<?php echo $row['ma_cau_hoi'] ?>" class="question_box" style="width: 1000px; height:500px;">
         <div class="question py-2">
           <h3>Câu hỏi: </h3><?php echo $row['noi_dung_cau_hoi'] ?>
         </div>
@@ -56,9 +56,8 @@ $query = $stmt->execute();
   </div>
 </body>
 <script>
-  let currentQuestion = 0; // Start with the first question
+  let currentQuestion = 0; n
 
-  // Hide all questions, except for the first one
   document.querySelectorAll('.question_box').forEach((elem, index) => {
     if (index !== currentQuestion) {
       elem.style.display = 'none';
@@ -79,6 +78,10 @@ $query = $stmt->execute();
 
   document.querySelectorAll('.cau_sau').forEach((btn, index) => {
     btn.addEventListener('click', function() {
+      document.querySelectorAll('.result').forEach((result) => {
+        result.style.display = 'none';
+      });
+
       document.querySelectorAll('.question_box')[currentQuestion].style.display = 'none';
       currentQuestion++;
       if (currentQuestion === document.querySelectorAll('.question_box').length) {
@@ -90,6 +93,10 @@ $query = $stmt->execute();
 
   document.querySelectorAll('.cau_truoc').forEach((btn, index) => {
     btn.addEventListener('click', function() {
+      document.querySelectorAll('.result').forEach((result) => {
+        result.style.display = 'none';
+      });
+
       document.querySelectorAll('.question_box')[currentQuestion].style.display = 'none';
       currentQuestion--;
       if (currentQuestion < 0) {
