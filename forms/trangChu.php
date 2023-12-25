@@ -14,20 +14,16 @@ $query = $stmt->execute();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <title>Trắc nghiệm</title>
 </head>
-<title>Trắc nghiệm</title>
-</head>
-<style>
-
-</style>
 
 <body>
   <div id="content">
     <?php
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     ?>
-      <div id="question-<?php echo $row['ma_cau_hoi'] ?>" class="question_box" style="width: 1000px; height:500px;">
+      <div id="question-<?php echo $row['ma_cau_hoi'] ?>" class="question_box">
         <div class="question py-2">
-          <h3>Câu hỏi: </h3><?php echo $row['noi_dung_cau_hoi'] ?>
+          <h3>Câu hỏi: </h3><?php echo $row['noi_dung_cau_hoi'] ?><br>
+          <img src="./data/<?php echo $row['hinh_anh'] ?>" alt="" style="width: 150px; height:250px;">
         </div>
         <div class="answer">
           <form action="" method="post">
@@ -54,57 +50,57 @@ $query = $stmt->execute();
     }
     ?>
   </div>
-</body>
-<script>
-  let currentQuestion = 0; n
+  <script>
+    let currentQuestion = 0;
 
-  document.querySelectorAll('.question_box').forEach((elem, index) => {
-    if (index !== currentQuestion) {
-      elem.style.display = 'none';
-    }
-  });
+    document.querySelectorAll('.question_box').forEach((elem, index) => {
+      if (index !== currentQuestion) {
+        elem.style.display = 'none';
+      }
+    });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var answers = document.querySelectorAll('input[name="answer"]');
-    answers.forEach(function(answer) {
-      answer.addEventListener('click', function() {
-        var results = document.querySelectorAll('.result');
-        results.forEach(function(result) {
-          result.style.display = 'block';
+    document.addEventListener('DOMContentLoaded', function() {
+      var answers = document.querySelectorAll('input[name="answer"]');
+      answers.forEach(function(answer) {
+        answer.addEventListener('click', function() {
+          var results = document.querySelectorAll('.result');
+          results.forEach(function(result) {
+            result.style.display = 'block';
+          });
         });
       });
     });
-  });
 
-  document.querySelectorAll('.cau_sau').forEach((btn, index) => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.result').forEach((result) => {
-        result.style.display = 'none';
+    document.querySelectorAll('.cau_sau').forEach((btn, index) => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.result').forEach((result) => {
+          result.style.display = 'none';
+        });
+
+        document.querySelectorAll('.question_box')[currentQuestion].style.display = 'none';
+        currentQuestion++;
+        if (currentQuestion === document.querySelectorAll('.question_box').length) {
+          currentQuestion = 0;
+        }
+        document.querySelectorAll('.question_box')[currentQuestion].style.display = 'block';
       });
-
-      document.querySelectorAll('.question_box')[currentQuestion].style.display = 'none';
-      currentQuestion++;
-      if (currentQuestion === document.querySelectorAll('.question_box').length) {
-        currentQuestion = 0;
-      }
-      document.querySelectorAll('.question_box')[currentQuestion].style.display = 'block';
     });
-  });
 
-  document.querySelectorAll('.cau_truoc').forEach((btn, index) => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.result').forEach((result) => {
-        result.style.display = 'none';
+    document.querySelectorAll('.cau_truoc').forEach((btn, index) => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.result').forEach((result) => {
+          result.style.display = 'none';
+        });
+
+        document.querySelectorAll('.question_box')[currentQuestion].style.display = 'none';
+        currentQuestion--;
+        if (currentQuestion < 0) {
+          currentQuestion = document.querySelectorAll('.question_box').length - 1;
+        }
+        document.querySelectorAll('.question_box')[currentQuestion].style.display = 'block';
       });
-
-      document.querySelectorAll('.question_box')[currentQuestion].style.display = 'none';
-      currentQuestion--;
-      if (currentQuestion < 0) {
-        currentQuestion = document.querySelectorAll('.question_box').length - 1;
-      }
-      document.querySelectorAll('.question_box')[currentQuestion].style.display = 'block';
     });
-  });
-</script>
+  </script>
+</body>
 
 </html>
