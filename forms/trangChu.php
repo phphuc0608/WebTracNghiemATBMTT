@@ -22,8 +22,10 @@ $query = $stmt->execute();
     ?>
       <div id="question-<?php echo $row['ma_cau_hoi'] ?>" class="question_box">
         <div class="question py-2">
-          <h3>Câu hỏi: </h3><?php echo $row['noi_dung_cau_hoi'] ?><br>
-          <img src="./data/<?php echo $row['hinh_anh'] ?>" alt="" style="width: 150px; height:250px;">
+          <h3>Câu hỏi <?php echo $row['ma_cau_hoi'] ?>:</h3><?php echo $row['noi_dung_cau_hoi'] ?><br>
+          <?php if (!empty($row['hinh_anh'])) : ?>
+            <img class="img_question" src="./data/<?php echo $row['hinh_anh'] ?>" alt="" style="width: 350px; height:250px; display:block">
+          <?php endif; ?>
         </div>
         <div class="answer">
           <form action="" method="post">
